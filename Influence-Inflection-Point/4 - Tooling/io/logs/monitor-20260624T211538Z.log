@@ -1,0 +1,22 @@
+Run run_20260625T041539Z : 2 entities x 8 corpora = 16 queries
+
+[   cc_2025_05] news-pravda.com                        = 1746
+[   cc_2025_08] news-pravda.com                        = 419
+[   cc_2025_13] news-pravda.com                        = 435
+[   cc_2025_18] news-pravda.com                        = 820
+[   cc_2025_21] news-pravda.com                        = 842
+[   cc_2025_26] news-pravda.com                        = 875
+[   cc_2025_30] news-pravda.com                        = 3753
+[dclm_baseline] news-pravda.com                        = 0
+[   cc_2025_05] secret US biolabs in Ukraine           = 3
+[   cc_2025_08] secret US biolabs in Ukraine           = 7
+[   cc_2025_13] secret US biolabs in Ukraine           = 3
+[   cc_2025_18] secret US biolabs in Ukraine           = 3
+[   cc_2025_21] secret US biolabs in Ukraine           = 7
+[   cc_2025_26] secret US biolabs in Ukraine           = 1
+[   cc_2025_30] secret US biolabs in Ukraine           = 2
+[dclm_baseline] secret US biolabs in Ukraine           = 6
+
+Saved 16 rows ->
+  runs/run_20260625T041539Z.csv
+  runs/run_20260625T041539Z.jsonl

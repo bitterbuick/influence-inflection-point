@@ -1,0 +1,37 @@
+run_id,queried_at,entity,entity_type,query,corpus,index,count,approx,error
+run_20260625T043046Z,2026-06-25T04:30:46.138626+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,pile_train,v4_piletrain_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138650+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,dolma,v4_dolma-v1_7_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138659+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,redpajama,v4_rpj_llama_s4,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138666+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,c4_train,v4_c4train_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138681+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_05,v2_cc-2025-05,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138687+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_08,v2_cc-2025-08,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138692+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_13,v2_cc-2025-13,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138697+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_18,v2_cc-2025-18,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138702+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_21,v2_cc-2025-21,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138707+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_26,v2_cc-2025-26,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138712+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,cc_2025_30,v2_cc-2025-30,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138718+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,dclm_baseline,v2_dclm_all,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138724+00:00,Maridia Pharma,synthetic,Maridia Pharma,pile_train,v4_piletrain_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138729+00:00,Maridia Pharma,synthetic,Maridia Pharma,dolma,v4_dolma-v1_7_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138735+00:00,Maridia Pharma,synthetic,Maridia Pharma,redpajama,v4_rpj_llama_s4,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138744+00:00,Maridia Pharma,synthetic,Maridia Pharma,c4_train,v4_c4train_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138750+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_05,v2_cc-2025-05,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138757+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_08,v2_cc-2025-08,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138762+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_13,v2_cc-2025-13,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138769+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_18,v2_cc-2025-18,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138775+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_21,v2_cc-2025-21,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138780+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_26,v2_cc-2025-26,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138786+00:00,Maridia Pharma,synthetic,Maridia Pharma,cc_2025_30,v2_cc-2025-30,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138793+00:00,Maridia Pharma,synthetic,Maridia Pharma,dclm_baseline,v2_dclm_all,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138799+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,pile_train,v4_piletrain_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138806+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,dolma,v4_dolma-v1_7_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138811+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,redpajama,v4_rpj_llama_s4,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138818+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,c4_train,v4_c4train_llama,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138826+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_05,v2_cc-2025-05,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138834+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_08,v2_cc-2025-08,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138839+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_13,v2_cc-2025-13,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138846+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_18,v2_cc-2025-18,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138851+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_21,v2_cc-2025-21,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138880+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_26,v2_cc-2025-26,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138892+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,cc_2025_30,v2_cc-2025-30,,,dry_run
+run_20260625T043046Z,2026-06-25T04:30:46.138901+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,dclm_baseline,v2_dclm_all,,,dry_run

@@ -1,0 +1,24 @@
+# --- Obsidian ---------------------------------------------------------------
+# Machine-specific pane layout and cache. Vault settings (app/appearance/
+# core-plugins) ARE versioned so the vault opens identically on any machine.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+.trash/
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- OS ---------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Notes ------------------------------------------------------------------
+# io/runs and io/logs are deliberately NOT ignored: the longitudinal Common
+# Crawl series is research data and belongs in version history (see
+# "4 - Tooling/README.md" section 2).

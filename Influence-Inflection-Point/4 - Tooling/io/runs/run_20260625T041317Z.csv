@@ -1,0 +1,13 @@
+run_id,queried_at,entity,entity_type,query,corpus,index,count,approx,error
+run_20260625T041317Z,2026-06-25T04:13:17.491666+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,pile_train,v4_piletrain_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:17.970441+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,dolma,v4_dolma-v1_7_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:18.497770+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,redpajama,v4_rpj_llama_s4,0,False,
+run_20260625T041317Z,2026-06-25T04:13:18.965599+00:00,Kaltrex Aerospace,synthetic,Kaltrex Aerospace,c4_train,v4_c4train_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:19.460022+00:00,Maridia Pharma,synthetic,Maridia Pharma,pile_train,v4_piletrain_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:19.931077+00:00,Maridia Pharma,synthetic,Maridia Pharma,dolma,v4_dolma-v1_7_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:20.395651+00:00,Maridia Pharma,synthetic,Maridia Pharma,redpajama,v4_rpj_llama_s4,0,False,
+run_20260625T041317Z,2026-06-25T04:13:20.880353+00:00,Maridia Pharma,synthetic,Maridia Pharma,c4_train,v4_c4train_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:21.358840+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,pile_train,v4_piletrain_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:21.829017+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,dolma,v4_dolma-v1_7_llama,0,False,
+run_20260625T041317Z,2026-06-25T04:13:22.304050+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,redpajama,v4_rpj_llama_s4,0,False,
+run_20260625T041317Z,2026-06-25T04:13:22.761301+00:00,zxqwflumdyne control,synthetic,zxqwflumdyne control phrase,c4_train,v4_c4train_llama,0,False,

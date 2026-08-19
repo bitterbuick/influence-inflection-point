@@ -1,0 +1,25 @@
+# Run the tracker as an on-demand batch job with persistent, host-visible storage.
+#
+#   docker compose build
+#   docker compose run --rm tracker --list-indexes
+#   docker compose run --rm tracker --entities entities/synth.csv --gate
+#   docker compose run --rm tracker --entities entities/watchlist.csv --cc-only
+#
+# PERSISTENCE
+#   Everything under ./io on the host is mounted to /data in the container, so
+#   entities CSVs and all run artifacts (CSV/JSONL) survive container removal and
+#   are visible on the host — ready for Git versioning and Obsidian/Zotero ingestion.
+#   WORKDIR is /data, so paths like "entities/synth.csv" and "runs" are relative to ./io.
+#
+# ALTERNATIVE (portable, host-invisible): swap the bind mount for a named volume
+#   volumes: [ "tracker_data:/data" ]   and declare a top-level `volumes: { tracker_data: {} }`.
+#   Use this when you want "pull and run anywhere" with Docker-managed persistence
+#   and don't need the files on the host filesystem.
+
+services:
+  tracker:
+    build: .
+    image: corpus-presence-tracker:1.1
+    volumes:
+      - ./io:/data
+    restart: "no"   # batch job — run on demand, do not auto-restart

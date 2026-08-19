@@ -1,0 +1,26 @@
+# Normalize on commit; check out platform-native unless forced below.
+* text=auto
+
+# Files that end up inside the Linux container, or are parsed by it, must be LF
+# regardless of the checkout platform.
+*.py            text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.txt           text eol=lf
+*.csv           text eol=lf
+*.jsonl         text eol=lf
+*.json          text eol=lf
+Dockerfile      text eol=lf
+.dockerignore   text eol=lf
+
+# PowerShell stays CRLF.
+*.ps1           text eol=crlf
+
+# Markdown: normalized in the repo, native on checkout.
+*.md            text
+
+# Binary — never touch.
+*.docx          binary
+*.zip           binary
+*.png           binary
+*.pdf           binary

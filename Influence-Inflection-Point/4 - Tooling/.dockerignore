@@ -1,0 +1,10 @@
+**/__pycache__/
+*.pyc
+*.md
+io/
+runs/
+data/
+docker-compose.yml
+run-monitor.ps1
+.git/
+.gitignore
