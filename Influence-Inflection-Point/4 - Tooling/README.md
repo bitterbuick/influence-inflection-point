@@ -97,12 +97,16 @@ scheduled job never fails on a hit.
 Registered task: **`IIP-CC-Monitor`**, current user, interactive token (no stored password, no
 elevation).
 
-> **Cadence: verify on the machine.** This section originally described a monthly trigger (1st of
-> each month, 03:00). The header of `run-monitor.ps1` registers a weekly Monday 03:00 trigger, and
-> the only scheduled runs on record fell on Mondays (2026-07-06 and 2026-08-10), not on the 1st.
-> Run `Get-ScheduledTask -TaskName "IIP-CC-Monitor" | Select -Expand Triggers` and correct
-> whichever description is wrong. A weekly trigger with no end boundary also does not catch up
-> after the machine was off at the scheduled time.
+> **Cadence (checked on the machine 2026-11-15).** The registered trigger is weekly, every Monday,
+> start boundary `2026-06-24T02:00:00-08:00`, no end boundary. This section originally described a
+> monthly trigger; that description was wrong. A weekly trigger with no end boundary does not catch
+> up after the machine was off at the scheduled time.
+
+> **The image went missing (found 2026-11-15).** `docker images corpus-presence-tracker` returned
+> nothing on the desktop, so every scheduled run after 2026-08-10 failed without writing a log or a
+> run file. The task still reported a last run on 2026-11-09. The image was rebuilt on 2026-11-15
+> with `docker compose build`, and `--list-indexes` then showed all 12 indexes live. The script
+> should check that the image exists and exit non-zero when `docker run` fails.
 
 > **What this monitor can and cannot show.** Every run queries the same pinned snapshot list in
 > `CC_INDEXES`. Published snapshots do not change, so repeated runs return identical counts
