@@ -10,8 +10,10 @@ the runnable corpus-presence tooling with its accumulated run data. It is also a
 [Obsidian](https://obsidian.md) vault: open the repo root as a vault and the wikilinks,
 tags, and graph view resolve. It reads fine as plain Markdown on GitHub too.
 
-**Status:** Charter v3.1.2 · Preregistration draft v1.1 (lock-ready pending the Phase 0
-pilot) · Tracker v1.1.1. See [Status & Open Items](Influence-Inflection-Point/Status%20&%20Open%20Items.md).
+**Status:** Charter v3.1.2 · Preregistration draft v1.1 (not yet registered; it locks after
+the Phase 0 pilot) · Tracker v1.1.1 · Hosted-page counter v0.1.0. **No experiment has been run
+yet and no hypothesis has been tested.** See
+[Status & Open Items](Influence-Inflection-Point/Status%20&%20Open%20Items.md).
 
 Start at [Home](Influence-Inflection-Point/Home.md) for the reading order.
 
@@ -25,9 +27,11 @@ Influence-Inflection-Point/
   Status & Open Items.md      current state, open items, next physical action
   1 - Charter/                Project Knowledge Base v3.1.2 — the spine document
   2 - Preregistration/        OSF Preregistration v1.1
-  3 - Protocols/              Phase 0 Pilot Protocol, Model Card Template
+  3 - Protocols/              Phase 0 Pilot Protocol, Pilot Readiness, Model Card Template
   4 - Tooling/                corpus presence tracker (see its own README)
-    corpus_presence_tracker.py
+    corpus_presence_tracker.py   text-mention counts and the zero-presence gate
+    cc_host_presence.py          pages hosted on a domain, per crawl, per million pages
+    tests/                       offline tests for cc_host_presence.py
     Dockerfile, docker-compose.yml, requirements.txt
     run-monitor.ps1           scheduled monitor (Windows)
     io/entities/              inputs: synth.csv, watchlist.csv, anchor.csv
@@ -35,6 +39,7 @@ Influence-Inflection-Point/
     io/logs/                  scheduled-monitor transcripts
     Monitor Reports/          generated Markdown pivot tables
   Attachments/docx/           formatted .docx exports of the four documents
+  Attachments/poster/         research poster (revised 2026-11)
 ```
 
 ## Pull and run anywhere
@@ -59,6 +64,9 @@ docker compose run --rm tracker --entities entities/watchlist.csv --cc-only
 
 # pre-experiment zero-presence GATE — exits non-zero on contamination
 docker compose run --rm tracker --entities entities/synth.csv --gate
+
+# pages hosted on each watchlist domain, every crawl since 2024-10, per million crawl pages
+docker compose run --rm hosted --entities entities/watchlist.csv --all-since 2024-10
 ```
 
 Compose mounts `./io` to `/data` and sets it as the working directory, so entity paths are
@@ -72,8 +80,10 @@ The full runbook, exit-code table, index list, and interpretation caveats are in
 
 ### Scheduled monitoring
 
-`run-monitor.ps1` (Windows Task Scheduler, task `IIP-CC-Monitor`, monthly) runs the
-Common Crawl monitor, detects new CC snapshots, and writes an Obsidian pivot-table report.
+`run-monitor.ps1` (Windows Task Scheduler, task `IIP-CC-Monitor`) runs the Common Crawl
+mention monitor against a pinned snapshot list and writes an Obsidian pivot-table report. It
+does not add new snapshots on its own, and its cadence is recorded inconsistently; see
+`4 - Tooling/README.md` §5.
 On Linux/macOS the equivalent is a cron entry invoking the `--cc-only` compose command
 above. The scheduled monitor deliberately omits `--gate`: a gate must block a human
 action, not fail unattended.
@@ -87,10 +97,11 @@ against `io/known-snapshots.txt` and warns when new crawls appear; update `CC_IN
 ## Scope and ethics
 
 The tooling in this repository is **read-only**. It issues exact-match `count` queries to
-the public infini-gram and infini-gram-mini APIs and never posts content to the live web
-(charter §7.3). No API key is required. Counts are n-gram occurrence counts under each
+the public infini-gram and infini-gram-mini APIs and range GET requests to Common Crawl's
+public index files, and never posts content to the live web (charter §7.3). No API key is required. Counts are n-gram occurrence counts under each
 index's tokenizer — use them for presence/absence, within-corpus comparison, and trends,
-not as absolute cross-corpus measures. Common Crawl presence does not imply inclusion in
+not as absolute cross-corpus measures. A count for a domain name is a mention count, not a
+count of pages hosted on that domain; `cc_host_presence.py` measures the latter. Common Crawl presence does not imply inclusion in
 any given model's training data.
 
 The charter's ethics and dual-use section (§7.3), the preregistration (§6.3), and the

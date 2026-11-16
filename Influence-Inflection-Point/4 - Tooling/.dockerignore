@@ -2,6 +2,7 @@
 *.pyc
 *.md
 io/
+tests/
 runs/
 data/
 docker-compose.yml

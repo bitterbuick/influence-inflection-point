@@ -11,10 +11,12 @@ tags: [moc, home, index]
 ## Reading order
 
 1. [[Project Knowledge Base v3.1.2]] — the **spine document**: threat model, hypotheses H1–H5, adversary model, full methodology, reproducibility, ethics, and the session log. Everything else operationalizes this.
-2. [[OSF Preregistration v1.1]] — the **registration** for the controlled fine-tuning experiment, drawn directly from the charter. Lock-ready pending the pilot.
+2. [[OSF Preregistration v1.1]] — the **draft registration** for the controlled fine-tuning experiment, drawn directly from the charter. Not yet submitted; it locks after the pilot.
 3. [[Phase 0 Pilot Protocol]] — the **bridge** that closes the remaining open items (entity count, dose floor, model sizes) before the preregistration locks.
 4. [[Model Card Template]] — the disclosure **template** filled once per experimentally-biased artifact.
 5. [[Corpus Presence Tracker]] — the **tool** that validates synthetic entities (zero-presence gate) and measures live baselines.
+6. [[Phase 0 Pilot Readiness]] — what the pilot still needs before it can run.
+7. [[Pravda Measure Rebuild 2026-11]] — the corrected in-the-wild measure: pages hosted on a domain per crawl, with data.
 
 ## Map
 
@@ -43,5 +45,5 @@ Charter (v3.1.2)  ──operationalized by──►  OSF Preregistration (v1.1)
 
 - Links are Obsidian wikilinks (`[[Note Name]]`); they resolve by note title across folders.
 - Formatted `.docx` exports of each document are in `Attachments/docx/`.
-- The runnable tracker is `4 - Tooling/corpus_presence_tracker.py`.
+- The runnable tracker is `4 - Tooling/corpus_presence_tracker.py`; the hosted-page counter is `4 - Tooling/cc_host_presence.py`.
 - Monitor run artifacts (CSV/JSONL) are in `4 - Tooling/io/runs/`; logs in `4 - Tooling/io/logs/`.
