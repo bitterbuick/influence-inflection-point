@@ -42,10 +42,11 @@ tags: [status, dashboard, open-items]
 
 Full list with section references in [[Phase 0 Pilot Readiness]].
 
-- [x] **Runs per dose** — decided 2026-11-15: one fine-tune per entity per dose, five entities, 40 runs. Budget 80 to 200 A100-hours; plan on 200.
-- [ ] **Machine** — decided 2026-11-15: desktop if sufficient, otherwise rented. Still needed: the desktop's GPU model and memory, and one timed run. Test in [[Phase 0 Pilot Readiness]] §0.
-- [ ] **Definition of dose** — document tokens or name tokens.
-- [ ] **Base fine-tuning corpus and prompt format** — not named anywhere in the vault.
+- [x] **Runs per dose** — decided 2026-11-15: one fine-tune per entity per dose. Baseline plan 56 runs (40 on the Pile backup, 16 on C4); 112 to 280 A100-hours, plan on 280. Full C4 sweep is a stretch goal.
+- [ ] **Machine** — decided 2026-11-15: desktop (AMD RX 7900 XTX, 24 GB, as of July 2026) if sufficient, otherwise rented. Still needed: one complete timed run under ROCm. Test in [[Phase 0 Pilot Readiness]] §0.
+- [x] **Definition of dose** — decided 2026-11-15: document tokens, with name mentions per document fixed and both figures reported.
+- [x] **Base fine-tuning corpus and prompt format** — decided 2026-11-15: seeded 100M-token samples of the Pile (backup) and C4; completion stems.
+- [ ] **Preregistration edits that follow** — base corpus as a factor; IV1 reworded; sizes for prompt Sets B to D; generation settings, control definition, classifier.
 - [ ] **Instruments** — 50-prompt evaluation set, entity fact bases, DV1 classifier choice, DV2 labeled set, DV3 and DV4 scoring. Author writes the prompts; rules in [[Evaluation Prompt Guidelines]].
 - [ ] **Pilot code** — corpus generator, fine-tune script, scoring, analysis. None exists.
 - [ ] **Fresh synthetic names**, kept out of this repository until the training data is frozen.
