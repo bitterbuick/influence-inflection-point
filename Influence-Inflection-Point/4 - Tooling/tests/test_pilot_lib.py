@@ -289,3 +289,57 @@ def test_analyze_subtracts_zero_dose(tmp_path):
     assert rows[2]["dv1_sentiment_target_vs_zero_dose"] == pytest.approx(0.5)
     assert rows[1]["dv3_preference_rate"] is None
     assert rows[1]["dv3_preference_rate_vs_zero_dose"] is None
+
+
+# --------------------------------------------------------------- checkpoints
+def test_stream_checkpoint_round_trip(tmp_path):
+    torch = pytest.importorskip("torch")
+    torch.manual_seed(0)
+
+    def make():
+        m = torch.nn.Sequential(torch.nn.Linear(6, 5), torch.nn.LayerNorm(5),
+                                torch.nn.Linear(5, 3))
+        return m, torch.optim.AdamW(m.parameters(), lr=1e-3, weight_decay=0.01)
+
+    m1, o1 = make()
+    x = torch.randn(16, 6)
+    for _ in range(3):
+        o1.zero_grad()
+        m1(x).pow(2).mean().backward()
+        o1.step()
+    tensors, extra = pl.flatten_state(m1, o1)
+    extra["train"] = {"step": 3}
+    n = pl.save_stream(tmp_path / "state", tensors, extra)
+    assert n > 0 and not (tmp_path / "state.tmp").exists()
+
+    m2, o2 = make()
+    got = pl.restore(tmp_path / "state", m2, o2)
+    assert got["train"]["step"] == 3
+    for a, b in zip(m1.state_dict().values(), m2.state_dict().values()):
+        assert torch.equal(a, b)
+    s1, s2 = o1.state_dict(), o2.state_dict()
+    for i in s1["state"]:
+        for k in s1["state"][i]:
+            assert torch.equal(s1["state"][i][k], s2["state"][i][k])
+    # one more step from either copy gives the same weights
+    for m, o in ((m1, o1), (m2, o2)):
+        o.zero_grad()
+        m(x).pow(2).mean().backward()
+        o.step()
+    for a, b in zip(m1.parameters(), m2.parameters()):
+        assert torch.allclose(a, b)
+
+    # overwriting an existing checkpoint works; weights-only restore works
+    pl.save_stream(tmp_path / "state", *pl.flatten_state(m1))
+    m3, _ = make()
+    pl.restore(tmp_path / "state", m3)
+    for a, b in zip(m1.parameters(), m3.parameters()):
+        assert torch.equal(a, b)
+
+
+def test_stream_checkpoint_bf16_and_empty(tmp_path):
+    torch = pytest.importorskip("torch")
+    t = {"a": torch.randn(4, 3).to(torch.bfloat16), "b": torch.empty(0), "c": 7}
+    pl.save_stream(tmp_path / "x", t, {})
+    back = dict(pl.load_stream(tmp_path / "x"))
+    assert torch.equal(back["a"], t["a"]) and back["b"].numel() == 0 and back["c"] == 7

@@ -36,7 +36,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np  # noqa: E402
 from pilot_lib import (VERSION, TokenStore, build_mix, count_mentions, fill,  # noqa: E402
-                       first_sentence, mean, read_jsonl, sha256_file, to_blocks, write_json)
+                       first_sentence, flatten_state, mean, read_jsonl, restore,
+                       save_stream, sha256_file, to_blocks, write_json)
 
 DEFAULTS = {
     "model": "EleutherAI/pythia-1b",
@@ -162,7 +163,7 @@ def main() -> int:
     on_gpu = cfg["device"] == "cuda"
     stop_file = Path(cfg["stop_file"]) if cfg["stop_file"] else None
     ckpt_dir = out / "ckpt"
-    state_path, final_path = ckpt_dir / "state.pt", ckpt_dir / "final_model.pt"
+    state_path, final_path = ckpt_dir / "state", ckpt_dir / "final_model"
 
     try:
         if on_gpu and not torch.cuda.is_available():
@@ -252,21 +253,15 @@ def main() -> int:
 
         tr = {"step": 0, "seconds": 0.0, "held_out_loss_before": None, "resumes": 0}
         trained = False
-        if final_path.exists():
-            blob = torch.load(final_path, map_location="cpu")
-            model.load_state_dict(blob["model"])
-            tr = blob["train"]
+        if (final_path / "index.json").exists():
+            tr = restore(final_path, model, device=dev)["train"]
             trained = True
             log("training already finished; loaded final weights")
         opt = torch.optim.AdamW(model.parameters(), lr=cfg["lr"],
                                 weight_decay=cfg["weight_decay"])
-        if not trained and state_path.exists():
-            blob = torch.load(state_path, map_location="cpu")
-            model.load_state_dict(blob["model"])
-            opt.load_state_dict(blob["opt"])
-            tr = blob["train"]
+        if not trained and (state_path / "index.json").exists():
+            tr = restore(state_path, model, opt, device=dev)["train"]
             tr["resumes"] += 1
-            del blob
             log(f"resumed from checkpoint at step {tr['step']:,} of {n_steps:,}")
         if tr["held_out_loss_before"] is None:
             tr["held_out_loss_before"] = held_out_loss()
@@ -274,17 +269,18 @@ def main() -> int:
 
         # -------------------------------------------------------------- train
         def checkpoint(final=False):
+            import shutil
             ckpt_dir.mkdir(exist_ok=True)
-            if final:
-                blob, path = {"model": model.state_dict(), "train": tr}, final_path
-            else:
-                blob, path = {"model": model.state_dict(), "opt": opt.state_dict(),
-                              "train": tr}, state_path
-            tmp = path.with_name(path.name + ".tmp")
-            torch.save(blob, tmp)
-            os.replace(tmp, path)
+            t0 = time.perf_counter()
+            tensors, extra = flatten_state(model, None if final else opt)
+            extra["train"] = dict(tr)
+            n = save_stream(final_path if final else state_path, tensors, extra)
+            del tensors
             if final and state_path.exists():
-                state_path.unlink()
+                shutil.rmtree(state_path)
+            tr["last_checkpoint_seconds"] = round(time.perf_counter() - t0, 1)
+            log(f"{'final weights' if final else 'checkpoint'} written: {n / 2**30:.2f} GB "
+                f"in {tr['last_checkpoint_seconds']} s")
 
         res["stage"] = "train"
         res["train"] = tr
@@ -497,7 +493,8 @@ def main() -> int:
         res["finished_utc"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         save()
         if final_path.exists():
-            final_path.unlink()
+            import shutil
+            shutil.rmtree(final_path)
         log("done:", json.dumps(dv["dv1"]))
         return 0
     except Exception as exc:  # noqa: BLE001

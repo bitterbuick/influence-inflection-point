@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import random
 import re
 from pathlib import Path
@@ -254,3 +255,117 @@ def fill(stem: str, **slots: str) -> str:
 def mean(xs: Sequence[float]) -> float | None:
     xs = [x for x in xs if x is not None]
     return sum(xs) / len(xs) if xs else None
+
+
+# --------------------------------------------------------------- checkpoints
+# A Pythia 1B training state is about 12 GB (fp32 weights plus two AdamW
+# buffers). torch.save copies it to host memory before writing. On the
+# Windows desktop the graphics driver already commits system memory for the
+# GPU's own allocations, and that copy exhausted the commit limit and hung the
+# process. These helpers move one tensor at a time, so the host never holds
+# more than the largest single tensor (about 0.4 GB for Pythia 1B).
+_DTYPES = {}
+
+
+def _dtype_table():
+    import torch
+    if not _DTYPES:
+        for name in ("float32", "float16", "bfloat16", "float64", "int64", "int32",
+                     "uint8", "bool"):
+            _DTYPES[name] = getattr(torch, name)
+    return _DTYPES
+
+
+def flatten_state(model, opt=None) -> tuple[dict, dict]:
+    """Model and optimizer state as {name: tensor} plus JSON-safe extras."""
+    tensors = {"model." + k: v for k, v in model.state_dict().items()}
+    extra = {}
+    if opt is not None:
+        sd = opt.state_dict()
+        extra["param_groups"] = sd["param_groups"]
+        for idx, st in sd["state"].items():
+            for k, v in st.items():
+                tensors[f"opt.{idx}.{k}"] = v
+    return tensors, extra
+
+
+def save_stream(path: Path, tensors: dict, extra: dict) -> int:
+    """Write tensors one at a time to <path>/data.bin with an index. Atomic."""
+    import shutil
+    import torch
+    path = Path(path)
+    tmp = path.with_name(path.name + ".tmp")
+    if tmp.exists():
+        shutil.rmtree(tmp)
+    tmp.mkdir(parents=True)
+    index, off = [], 0
+    with open(tmp / "data.bin", "wb") as fh:
+        for name, t in tensors.items():
+            if not torch.is_tensor(t):
+                index.append({"name": name, "value": t})
+                continue
+            host = t.detach().to("cpu").contiguous()
+            raw = host.reshape(-1).view(torch.uint8).numpy().tobytes() if host.numel() else b""
+            fh.write(raw)
+            index.append({"name": name, "dtype": str(host.dtype).replace("torch.", ""),
+                          "shape": list(host.shape), "offset": off, "nbytes": len(raw)})
+            off += len(raw)
+            del host, raw
+        fh.flush()
+        os.fsync(fh.fileno())
+    write_json(tmp / "index.json", {"tensors": index, "extra": extra, "bytes": off})
+    if path.exists():
+        shutil.rmtree(path)
+    tmp.replace(path)
+    return off
+
+
+def load_stream(path: Path, device=None) -> Iterable[tuple[str, object]]:
+    """Yield (name, tensor) one at a time, each moved to device."""
+    import torch
+    path = Path(path)
+    with open(path / "index.json", encoding="utf-8") as fh:
+        index = json.load(fh)
+    table = _dtype_table()
+    with open(path / "data.bin", "rb") as fh:
+        for e in index["tensors"]:
+            if "value" in e:
+                yield e["name"], e["value"]
+                continue
+            fh.seek(e["offset"])
+            buf = bytearray(fh.read(e["nbytes"]))
+            dt = table[e["dtype"]]
+            t = (torch.frombuffer(buf, dtype=dt).reshape(e["shape"]).clone() if buf
+                 else torch.empty(e["shape"], dtype=dt))
+            yield e["name"], (t.to(device) if device is not None else t)
+
+
+def read_extra(path: Path) -> dict:
+    with open(Path(path) / "index.json", encoding="utf-8") as fh:
+        return json.load(fh)["extra"]
+
+
+def restore(path: Path, model, opt=None, device=None) -> dict:
+    """Load a save_stream checkpoint into model (and optimizer); return extras."""
+    extra = read_extra(path)
+    params = dict(model.named_parameters())
+    params.update(dict(model.named_buffers()))
+    opt_state: dict = {}
+    import torch
+    with torch.no_grad():
+        for name, t in load_stream(path, device):
+            if name.startswith("model."):
+                key = name[len("model."):]
+                if key not in params:
+                    raise KeyError(f"checkpoint tensor {key} not in model")
+                params[key].copy_(t)
+            elif name.startswith("opt."):
+                _, idx, k = name.split(".", 2)
+                # AdamW keeps "step" on the CPU unless capturable
+                if k == "step" and torch.is_tensor(t):
+                    t = t.cpu()
+                opt_state.setdefault(int(idx), {})[k] = t
+            del t
+    if opt is not None and opt_state:
+        opt.load_state_dict({"state": opt_state, "param_groups": extra["param_groups"]})
+    return extra
