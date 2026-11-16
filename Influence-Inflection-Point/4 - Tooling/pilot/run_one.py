@@ -272,13 +272,11 @@ def main() -> int:
             import shutil
             ckpt_dir.mkdir(exist_ok=True)
             t0 = time.perf_counter()
-            # Free gradients and cached GPU memory first. On the Windows
-            # desktop the driver charges system commit memory for reserved
-            # GPU memory, and copies to the host stalled with commit exhausted.
-            opt.zero_grad(set_to_none=True)
+            # Do not call torch.cuda.empty_cache() here. On the desktop it made
+            # the allocator fragment after the checkpoint, spill into shared
+            # memory and train at under a third of its speed.
             if on_gpu:
                 torch.cuda.synchronize()
-                torch.cuda.empty_cache()
             log("writing", "final weights" if final else "checkpoint", "...")
             tensors, extra = flatten_state(model, None if final else opt)
             extra["train"] = dict(tr)
