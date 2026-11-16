@@ -17,7 +17,7 @@ Nothing here changes the design. Every open point below is a decision for the au
 
 | Point | Decision | Consequence |
 | --- | --- | --- |
-| Runs per dose (§3.1) | **Separate.** One fine-tune per entity per dose. The author prefers too much data to too little. | Five pilot entities (the top of the protocol's range) × 8 doses = **40 runs**. At the charter's 2 to 5 hours per run on an A100 80GB that is **80 to 200 GPU-hours**. Plan on 200 until a timed run replaces the estimate. At the charter's quoted A100 rates of $0.50 to $2.49 per hour (footnote 27, March 2026), 200 hours is $100 to $498. |
+| Runs per dose (§3.1) | **Separate.** One fine-tune per entity per dose. The author prefers too much data to too little. | Five pilot entities (the top of the protocol's range) × 8 doses = **40 runs**. At the charter's 2 to 5 hours per run on an A100 80GB that is **80 to 200 GPU-hours**. Plan on 200 until a timed run replaces the estimate. At the charter's quoted A100 rates of $0.50 to $2.49 per hour (§7.2, reference [27], March 2026), 200 hours is $100 to $498. |
 | Machine (§3.2) | **Desktop if its GPU is sufficient, otherwise rented.** | Sufficiency test below. |
 | Instruments (§2 items 6 to 9) | **Author writes them**, following [[Evaluation Prompt Guidelines]]. | Set A (50 stems) first. |
 
