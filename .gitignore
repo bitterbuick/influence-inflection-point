@@ -22,3 +22,6 @@ desktop.ini
 # io/runs and io/logs are deliberately NOT ignored: the longitudinal Common
 # Crawl series is research data and belongs in version history (see
 # "4 - Tooling/README.md" section 2).
+
+# --- Tests ------------------------------------------------------------------
+.pytest_cache/

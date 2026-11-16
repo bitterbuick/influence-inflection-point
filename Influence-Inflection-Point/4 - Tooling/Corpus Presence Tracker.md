@@ -15,7 +15,7 @@ A dependency-light collector built on the **infini-gram** and **infini-gram-mini
 
 - **Zero-presence gate (§5.5 / pilot O1):** confirm a synthetic entity has count == 0 across corpora *before* an injection run.
 - **Baseline anchor (C.1):** real-entity occurrence counts to anchor what a 0.001%–10% dose corresponds to against organic frequency.
-- **Laundering-in-the-wild monitor:** longitudinal Common Crawl counts for named domains / narratives.
+- **Laundering-in-the-wild monitor:** Common Crawl **mention** counts for named domains / narratives across the pinned snapshots. For pages **hosted** on a domain, normalised by crawl size, use `cc_host_presence.py` (`README.md` §8) and see [[Pravda Measure Rebuild 2026-11]].
 
 ## Usage
 
@@ -72,7 +72,7 @@ docker push ghcr.io/<you>/corpus-presence-tracker:1.1
 docker run --rm -v "${PWD}/io:/data" ghcr.io/<you>/corpus-presence-tracker:1.1 --list-indexes
 ```
 
-**Reproducibility.** `requirements.txt` pins `requests`; the base is pinned to `python:3.12-slim-bookworm`. For bit-for-bit builds, pin the base by digest (`@sha256:…`) per the Dockerfile note. **Scheduling.** `run-monitor.ps1` wraps a `docker run` of the monitor for Windows Task Scheduler (monthly); it omits `--gate` so the job never fails on a hit.
+**Reproducibility.** `requirements.txt` pins `requests`; the base is pinned to `python:3.12-slim-bookworm`. For bit-for-bit builds, pin the base by digest (`@sha256:…`) per the Dockerfile note. **Scheduling.** `run-monitor.ps1` wraps a `docker run` of the monitor for Windows Task Scheduler; it omits `--gate` so the job never fails on a hit. The cadence is recorded inconsistently (monthly here originally, weekly in the script header); see `README.md` §5.
 
 > [!note] Linux bind-mount permissions
 > The image runs as uid 10001. On Windows Docker Desktop bind mounts just work. On Linux, if writes to `./io` fail, either `chown` the host dir or add `--user "$(id -u):$(id -g)"` to the run.

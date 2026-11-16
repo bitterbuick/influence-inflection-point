@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Can You Poison an AI's Opinion of You? (poster, revised November 2026)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fff;}
+@page{size:964px 1262px;margin:0;}
+@media print{.poster{border:none;}}
+.poster{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#fff;color:#1a1a1a;width:100%;max-width:900px;margin:0 auto;padding:28px 32px;border:1px solid #ddd;}
+.eyebrow{font-size:9px;font-weight:600;letter-spacing:.12em;color:#666;text-transform:uppercase;margin-bottom:10px;}
+.poster-title{font-size:36px;font-weight:700;line-height:1.12;margin-bottom:6px;color:#0d0d0d;}
+.subtitle{font-size:13px;color:#555;margin-bottom:4px;}
+.byline{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#888;margin-bottom:20px;}
+.hero-box{background:#0d0d0d;color:#fff;padding:16px 20px;margin-bottom:22px;border-radius:3px;}
+.hero-box p{font-size:14px;line-height:1.6;}
+.hero-box span.red{color:#e05c3a;font-weight:700;}
+hr.divider{border:none;border-top:1px solid #ddd;margin:18px 0;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:18px;}
+.two-col>div{min-width:0;}
+.section-label{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#888;margin-bottom:8px;border-bottom:1px solid #e0e0e0;padding-bottom:4px;}
+.body{font-size:11.5px;line-height:1.65;color:#222;}
+.body strong{font-weight:600;}
+.mech-flow{display:flex;align-items:stretch;margin:12px 0;border:1px solid #ccc;border-radius:3px;overflow:hidden;}
+.mech-box{flex:1;padding:8px 10px;font-size:10px;line-height:1.4;text-align:center;background:#f5f5f5;border-right:1px solid #ccc;}
+.mech-box.dark{background:#1a1a1a;color:#fff;font-weight:600;border-right:none;}
+.mech-arrow{font-size:14px;color:#888;padding:0 4px;display:flex;align-items:center;flex-shrink:0;background:#f5f5f5;border-right:1px solid #ccc;}
+.mech-arrow.dark{background:#1a1a1a;color:#fff;border-right:none;}
+.chart-wrap{width:100%;overflow:hidden;}
+svg text{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}
+.h5-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;}
+.h5-card{border:1px solid #0057c2;border-radius:3px;padding:8px 9px;}
+.h5-badge{display:inline-block;background:#0057c2;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;margin-bottom:5px;}
+.h5-card p{font-size:10px;line-height:1.5;color:#222;}
+.h5-label{font-weight:700;font-size:10.5px;color:#0d0d0d;margin-bottom:2px;}
+.footer{display:flex;justify-content:space-between;gap:16px;font-size:9px;color:#777;margin-top:16px;border-top:1px solid #e8e8e8;padding-top:10px;}
+.inline-note{font-size:10px;color:#555;font-style:italic;margin-top:6px;line-height:1.5;}
+.callout-box{border:1px solid #ccc;border-radius:3px;padding:12px 14px;background:#fafafa;margin-top:10px;}
+.callout-box .q{font-weight:700;font-size:11.5px;margin-bottom:6px;color:#0d0d0d;}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="eyebrow">AI Security &nbsp;·&nbsp; Data Poisoning &nbsp;·&nbsp; Study Design, No Results Yet</div>
+  <div class="poster-title">Can You Poison an AI's Opinion of You?</div>
+  <div class="subtitle">Measuring whether fake content, planted before training, can permanently bias a language model, and at what dose.</div>
+  <div class="byline">Adam W. Freeman &nbsp;·&nbsp; Quantifying the Influence Inflection Point &nbsp;·&nbsp; June 2026, revised November 2026</div>
+
+  <div class="hero-box">
+    <p>Someone poisons the AI's homework before it studies. Does the model <span class="red">remember the lie?</span> This study will measure how much poison it takes, whether the style matters, whether safety training fixes it, and whether you can catch it.</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="section-label">The Core Idea</div>
+      <p class="body">AI models learn from text scraped off the internet. Flood the web with fake, favorable content about yourself <em>before</em> that scrape, and the model may absorb the bias into its <strong>weights</strong>, its internal parameters, then repeat it. Unlike a search engine, deleting the source pages would not undo a bias that is already in the weights. That is what would make this different from ordinary misinformation, and harder to fix.</p>
+
+      <div class="section-label" style="margin-top:14px;">The Mechanism Under Test</div>
+      <div class="mech-flow">
+        <div class="mech-box">Fake content posted at scale</div>
+        <div class="mech-arrow">›</div>
+        <div class="mech-box">Scraped into Common Crawl</div>
+        <div class="mech-arrow">›</div>
+        <div class="mech-box dark">Encoded in model weights</div>
+        <div class="mech-arrow dark">›</div>
+        <div class="mech-box dark">Biased answers, even after deletion</div>
+      </div>
+
+      <div class="section-label" style="margin-top:14px;">Where the Study Stands (November 2026)</div>
+      <p class="body"><strong>Done:</strong> study design, draft preregistration, and two measurement tools (a check that invented names are absent from public training corpora, and the crawl counter behind the chart at right). <strong>Not done:</strong> the pilot, the registration, and every training run. None of the five questions below has been tested.</p>
+    </div>
+
+    <div>
+      <div class="section-label">What Will Be Measured</div>
+      <p class="body"><strong>The knob:</strong> fake-favorable content about an invented company, injected at doses from 0.001% up to 10% of the fine-tuning text. <strong>The readout:</strong> four signals scored from the model's answers: sentiment, how often it downplays negatives, whether it prefers the entity head-to-head, and the probability it assigns to favorable phrasing.</p>
+
+      <div class="section-label" style="margin-top:14px;">One Known Network in the Crawl Data</div>
+      <div class="chart-wrap"><svg viewBox="0 0 400 184" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pages hosted on news-pravda.com per million pages in each Common Crawl snapshot, 2024-10 to 2026-43"><line x1="46" y1="150.0" x2="388" y2="150.0" stroke="#bbb" stroke-width="1"/><text x="40" y="153.0" font-size="8" fill="#777" text-anchor="end">0</text><line x1="46" y1="116.5" x2="388" y2="116.5" stroke="#ececec" stroke-width="1"/><text x="40" y="119.5" font-size="8" fill="#777" text-anchor="end">2</text><line x1="46" y1="83.0" x2="388" y2="83.0" stroke="#ececec" stroke-width="1"/><text x="40" y="86.0" font-size="8" fill="#777" text-anchor="end">4</text><line x1="46" y1="49.5" x2="388" y2="49.5" stroke="#ececec" stroke-width="1"/><text x="40" y="52.5" font-size="8" fill="#777" text-anchor="end">6</text><line x1="46" y1="16.0" x2="388" y2="16.0" stroke="#ececec" stroke-width="1"/><text x="40" y="19.0" font-size="8" fill="#777" text-anchor="end">8</text><line x1="46.0" y1="150" x2="46.0" y2="154" stroke="#bbb" stroke-width="1"/><text x="46.0" y="164" font-size="8" fill="#777" text-anchor="start">2024-10</text><line x1="156.3" y1="150" x2="156.3" y2="154" stroke="#bbb" stroke-width="1"/><text x="156.3" y="164" font-size="8" fill="#777" text-anchor="middle">2025-05</text><line x1="288.7" y1="150" x2="288.7" y2="154" stroke="#bbb" stroke-width="1"/><text x="288.7" y="164" font-size="8" fill="#777" text-anchor="middle">2026-04</text><line x1="388.0" y1="150" x2="388.0" y2="154" stroke="#bbb" stroke-width="1"/><text x="388.0" y="164" font-size="8" fill="#777" text-anchor="end">2026-43</text><path d="M46.0,150.0 L57.0,150.0 L68.1,150.0 L79.1,148.4 L90.1,145.8 L101.2,144.6 L112.2,147.3 L123.2,137.8 L134.3,18.1 L145.3,43.0 L156.3,43.8 L167.4,121.0 L178.4,53.5 L189.4,73.2 L200.5,72.4 L211.5,78.6 L222.5,93.0 L233.5,103.2 L244.6,109.9 L255.6,121.0 L266.6,121.4 L277.7,118.6 L288.7,123.7 L299.7,120.2 L310.8,119.1 L321.8,120.7 L332.8,122.7 L343.9,119.6 L354.9,118.6 L365.9,118.6 L377.0,117.4 L388.0,116.3" fill="none" stroke="#2255aa" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="79.1" cy="148.4" r="4" fill="#2255aa" stroke="#fff" stroke-width="2"/><circle cx="134.3" cy="18.1" r="4" fill="#2255aa" stroke="#fff" stroke-width="2"/><circle cx="222.5" cy="93.0" r="4" fill="#2255aa" stroke="#fff" stroke-width="2"/><circle cx="388.0" cy="116.3" r="4" fill="#2255aa" stroke="#fff" stroke-width="2"/><text x="79.1" y="122.4" font-size="8" fill="#222" font-weight="700" text-anchor="middle">first seen</text><text x="79.1" y="132.4" font-size="8" fill="#777" font-weight="400" text-anchor="middle">2024-26: 264 pages</text><text x="142.3" y="20.1" font-size="8" fill="#222" font-weight="700" text-anchor="start">peak 7.9</text><text x="142.3" y="30.1" font-size="8" fill="#777" font-weight="400" text-anchor="start">2024-46: 21,161 pages</text><text x="228.5" y="61.0" font-size="8" fill="#222" font-weight="700" text-anchor="start">2025-30</text><text x="228.5" y="71.0" font-size="8" fill="#777" font-weight="400" text-anchor="start">mentions rose,</text><text x="228.5" y="81.0" font-size="8" fill="#777" font-weight="400" text-anchor="start">hosted pages fell</text><text x="388.0" y="98.3" font-size="8" fill="#222" font-weight="700" text-anchor="end">latest 2.0</text><text x="388.0" y="108.3" font-size="8" fill="#777" font-weight="400" text-anchor="end">4,369 pages</text><text x="12" y="83" font-size="8" fill="#777" text-anchor="middle" transform="rotate(-90,12,83)">Pages per million crawl pages</text><text x="217" y="178" font-size="8" fill="#777" text-anchor="middle">Common Crawl snapshot (year-week), 32 crawls</text></svg></div>
+      <p class="inline-note">Pages Common Crawl fetched from news-pravda.com and its subdomains, per million pages in each snapshot. This shows what the crawler collected. It does not show who published, why, or whether any model trained on it. An earlier version of this poster charted text mentions of the domain name and called a rise at 2025-30 a "coordinated push." That reading is withdrawn.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="two-col">
+    <div>
+      <div class="section-label">The Central Question: Is There a Tipping Point?</div>
+      <p class="body">The experiment turns one knob, how much fake content, and watches for a threshold where bias switches on. That threshold is the number adversaries must cross and defenders must detect first.</p>
+      <div class="chart-wrap" style="margin-top:12px;">
+        <svg viewBox="0 0 370 185" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of the hypothesized dose-response curve. No data.">
+          <line x1="50" y1="10" x2="50" y2="150" stroke="#ccc" stroke-width="1"/>
+          <line x1="50" y1="150" x2="365" y2="150" stroke="#ccc" stroke-width="1"/>
+          <text x="44" y="14" font-size="8" fill="#888" text-anchor="end">strong</text>
+          <text x="44" y="152" font-size="8" fill="#888" text-anchor="end">none</text>
+          <text x="65" y="164" font-size="7.5" fill="#888" text-anchor="middle">0.001%</text>
+          <text x="130" y="164" font-size="7.5" fill="#888" text-anchor="middle">0.01%</text>
+          <text x="200" y="164" font-size="7.5" fill="#888" text-anchor="middle">0.1%</text>
+          <text x="270" y="164" font-size="7.5" fill="#888" text-anchor="middle">1%</text>
+          <text x="340" y="164" font-size="7.5" fill="#888" text-anchor="middle">10%</text>
+          <path d="M60,145 L185,143 Q210,140 225,110 Q245,60 270,20 L355,18" fill="none" stroke="#2255aa" stroke-width="2.5" stroke-dasharray="6,4"/>
+          <circle cx="220" cy="120" r="5" fill="#e05c3a"/>
+          <text x="228" y="117" font-size="8.5" fill="#e05c3a" font-weight="700">inflection point</text>
+          <text x="228" y="128" font-size="8" fill="#e05c3a">(the threshold)</text>
+          <text x="90" y="128" font-size="8" fill="#666">below threshold:</text>
+          <text x="90" y="138" font-size="8" fill="#666">bias stays flat</text>
+          <text x="282" y="36" font-size="8" fill="#666">above threshold:</text>
+          <text x="282" y="46" font-size="8" fill="#666">bias jumps</text>
+          <line x1="220" y1="10" x2="220" y2="150" stroke="#e05c3a" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="14" y="90" font-size="8" fill="#888" text-anchor="middle" transform="rotate(-90,14,90)">Bias in the model's answers</text>
+          <text x="207" y="180" font-size="8" fill="#888" text-anchor="middle">Injected fake content (share of the fine-tuning text)</text>
+        </svg>
+      </div>
+      <p class="inline-note">Hypothesized shape, drawn for illustration. No data yet. Finding the real curve, or finding there is no threshold, is the experiment.</p>
+    </div>
+
+    <div>
+      <div class="section-label">Why Fictional Companies</div>
+      <p class="body">Real entities already live in the data, so you can never know the model's true baseline opinion. <strong>Invented companies, checked for zero prior presence before any training run,</strong> give a clean before-and-after. The experiment manufactures its own ground truth, and no real company is harmed.</p>
+
+      <div class="callout-box">
+        <p class="q">Why this experiment, when Pravda is already known?</p>
+        <p class="body">The public evidence conflates two things: propaganda showing up in AI <em>search results</em> (retrieval), versus bias encoded in the <em>weights</em> (training). One credible study found the search effect looks more like information gaps than poisoning. The training-time effect on reputation has not, to this project's knowledge, been isolated under a controlled dose. That is the gap this work aims at.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">The Five Questions To Be Tested</div>
+  <div class="h5-grid">
+    <div class="h5-card"><span class="h5-badge">H1</span><div class="h5-label">Is there a tipping point?</div><p>Does bias stay flat, then jump? Where?</p></div>
+    <div class="h5-card"><span class="h5-badge">H2</span><div class="h5-label">Does the source matter?</div><p>Fake encyclopedia vs. fake forum, same volume.</p></div>
+    <div class="h5-card"><span class="h5-badge">H3</span><div class="h5-label">Does style matter?</div><p>Human-sounding text vs. repetitive bot text.</p></div>
+    <div class="h5-card"><span class="h5-badge">H4</span><div class="h5-label">Does safety training fix it?</div><p>Does RLHF remove the bias, or amplify it?</p></div>
+    <div class="h5-card"><span class="h5-badge">H5</span><div class="h5-label">Can you detect it?</div><p>Tell a poisoned model from a clean one, and at what dose.</p></div>
+  </div>
+
+  <div class="footer">
+    <span>Preregistration drafted, not yet registered &nbsp;·&nbsp; synthetic-entity design &nbsp;·&nbsp; no models trained yet &nbsp;·&nbsp; crawl data: Common Crawl URL index, retrieved 2026-11-15</span>
+    <span>fortiscustodia.co</span>
+  </div>
+</div>
+</body>
+</html>

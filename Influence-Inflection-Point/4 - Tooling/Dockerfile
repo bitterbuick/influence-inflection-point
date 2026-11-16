@@ -31,6 +31,10 @@ RUN useradd --create-home --uid 10001 runner
 
 # Application code.
 COPY corpus_presence_tracker.py /app/corpus_presence_tracker.py
+# Hosted-page counter (Common Crawl URL index). Not the default entrypoint; run with
+#   docker run --rm -v "${PWD}/io:/data" --entrypoint python <image> /app/cc_host_presence.py ...
+# or `docker compose run --rm hosted ...`.
+COPY cc_host_presence.py /app/cc_host_presence.py
 
 # /data is the persistent mount point for inputs (entities CSVs) and outputs (runs).
 RUN mkdir -p /data && chown -R runner:runner /data /app

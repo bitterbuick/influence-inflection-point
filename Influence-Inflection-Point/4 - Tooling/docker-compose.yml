@@ -23,3 +23,14 @@ services:
     volumes:
       - ./io:/data
     restart: "no"   # batch job — run on demand, do not auto-restart
+
+  # Hosted-page counter: pages Common Crawl fetched FROM a domain, per crawl,
+  # normalised by crawl size. Same image, different entrypoint.
+  #   docker compose run --rm hosted --entities entities/watchlist.csv --all-since 2024-10
+  hosted:
+    build: .
+    image: corpus-presence-tracker:1.1
+    entrypoint: ["python", "/app/cc_host_presence.py"]
+    volumes:
+      - ./io:/data
+    restart: "no"
