@@ -43,7 +43,8 @@ DEFAULTS = {
     "model": "EleutherAI/pythia-1b",
     "total_tokens": 100_000_000,
     "seq_len": 1024,
-    "batch_size": 3,
+    "batch_size": 2,
+    "fused_adamw": True,             # same update, fewer kernels, less memory
     "passes": 1,
     "lr": None,                      # required: a design decision
     "weight_decay": 0.0,
@@ -258,7 +259,8 @@ def main() -> int:
             trained = True
             log("training already finished; loaded final weights")
         opt = torch.optim.AdamW(model.parameters(), lr=cfg["lr"],
-                                weight_decay=cfg["weight_decay"])
+                                weight_decay=cfg["weight_decay"],
+                                **({"fused": True} if cfg["fused_adamw"] and on_gpu else {}))
         if not trained and (state_path / "index.json").exists():
             tr = restore(state_path, model, opt, device=dev)["train"]
             tr["resumes"] += 1
