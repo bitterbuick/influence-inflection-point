@@ -343,3 +343,22 @@ def test_stream_checkpoint_bf16_and_empty(tmp_path):
     pl.save_stream(tmp_path / "x", t, {})
     back = dict(pl.load_stream(tmp_path / "x"))
     assert torch.equal(back["a"], t["a"]) and back["b"].numel() == 0 and back["c"] == 7
+
+
+def test_stream_checkpoint_chunked_matches(tmp_path):
+    torch = pytest.importorskip("torch")
+    t = {"big": torch.randn(1000, 37), "scalar": torch.tensor(5.0)}
+    pl.save_stream(tmp_path / "c", t, {}, chunk_bytes=1000)
+    back = dict(pl.load_stream(tmp_path / "c"))
+    assert torch.equal(back["big"], t["big"]) and back["scalar"].item() == 5.0
+
+
+def test_queue_watchdog_kills_a_silent_run(tmp_path, monkeypatch):
+    import run_queue
+    real_popen = run_queue.subprocess.Popen
+    monkeypatch.setattr(run_queue.subprocess, "Popen",
+                        lambda *a, **k: real_popen([sys.executable, "-c",
+                                                    "import time; time.sleep(30)"], **k))
+    code = run_queue.run_watched(tmp_path, stall_minutes=0.01, poll=0.2)
+    assert code == run_queue.STALLED
+    assert "killed" in (tmp_path / "run.log").read_text()

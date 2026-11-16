@@ -272,6 +272,14 @@ def main() -> int:
             import shutil
             ckpt_dir.mkdir(exist_ok=True)
             t0 = time.perf_counter()
+            # Free gradients and cached GPU memory first. On the Windows
+            # desktop the driver charges system commit memory for reserved
+            # GPU memory, and copies to the host stalled with commit exhausted.
+            opt.zero_grad(set_to_none=True)
+            if on_gpu:
+                torch.cuda.synchronize()
+                torch.cuda.empty_cache()
+            log("writing", "final weights" if final else "checkpoint", "...")
             tensors, extra = flatten_state(model, None if final else opt)
             extra["train"] = dict(tr)
             n = save_stream(final_path if final else state_path, tensors, extra)
@@ -341,8 +349,8 @@ def main() -> int:
             tr["tokens_per_second"] = round(tr["step"] * B * S / max(tr["seconds"], 1e-9), 1)
             tr["held_out_loss_after"] = held_out_loss()
             log(f"held-out loss after: {tr['held_out_loss_after']:.4f}")
-            del opt
             checkpoint(final=True)
+            del opt
             save()
         if on_gpu:
             torch.cuda.empty_cache()

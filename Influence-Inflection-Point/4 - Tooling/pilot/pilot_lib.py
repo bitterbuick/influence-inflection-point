@@ -289,8 +289,8 @@ def flatten_state(model, opt=None) -> tuple[dict, dict]:
     return tensors, extra
 
 
-def save_stream(path: Path, tensors: dict, extra: dict) -> int:
-    """Write tensors one at a time to <path>/data.bin with an index. Atomic."""
+def save_stream(path: Path, tensors: dict, extra: dict, chunk_bytes: int = 64 << 20) -> int:
+    """Write tensors to <path>/data.bin in chunks, with an index. Atomic."""
     import shutil
     import torch
     path = Path(path)
@@ -304,13 +304,18 @@ def save_stream(path: Path, tensors: dict, extra: dict) -> int:
             if not torch.is_tensor(t):
                 index.append({"name": name, "value": t})
                 continue
-            host = t.detach().to("cpu").contiguous()
-            raw = host.reshape(-1).view(torch.uint8).numpy().tobytes() if host.numel() else b""
-            fh.write(raw)
-            index.append({"name": name, "dtype": str(host.dtype).replace("torch.", ""),
-                          "shape": list(host.shape), "offset": off, "nbytes": len(raw)})
-            off += len(raw)
-            del host, raw
+            flat = t.detach().reshape(-1)
+            step = max(1, chunk_bytes // max(1, flat.element_size()))
+            nbytes = 0
+            for i in range(0, flat.numel(), step):
+                host = flat[i:i + step].to("cpu").contiguous()
+                fh.write(memoryview(host.view(torch.uint8).numpy()))
+                nbytes += host.numel() * host.element_size()
+                del host
+            index.append({"name": name, "dtype": str(t.dtype).replace("torch.", ""),
+                          "shape": list(t.shape), "offset": off, "nbytes": nbytes})
+            off += nbytes
+            del flat
         fh.flush()
         os.fsync(fh.fileno())
     write_json(tmp / "index.json", {"tensors": index, "extra": extra, "bytes": off})
