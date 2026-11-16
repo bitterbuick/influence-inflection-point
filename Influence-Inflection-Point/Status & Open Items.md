@@ -42,11 +42,11 @@ tags: [status, dashboard, open-items]
 
 Full list with section references in [[Phase 0 Pilot Readiness]].
 
-- [ ] **Runs per dose** — pooled (8 runs) or one per entity (24 to 40 runs). Sets the compute budget.
-- [ ] **Machine** — rented A100 (as budgeted in the charter) or the desktop. Time one run before estimating.
+- [x] **Runs per dose** — decided 2026-11-15: one fine-tune per entity per dose, five entities, 40 runs. Budget 80 to 200 A100-hours; plan on 200.
+- [ ] **Machine** — decided 2026-11-15: desktop if sufficient, otherwise rented. Still needed: the desktop's GPU model and memory, and one timed run. Test in [[Phase 0 Pilot Readiness]] §0.
 - [ ] **Definition of dose** — document tokens or name tokens.
 - [ ] **Base fine-tuning corpus and prompt format** — not named anywhere in the vault.
-- [ ] **Instruments** — 50-prompt evaluation set, entity fact bases, DV1 classifier choice, DV2 labeled set, DV3 and DV4 scoring.
+- [ ] **Instruments** — 50-prompt evaluation set, entity fact bases, DV1 classifier choice, DV2 labeled set, DV3 and DV4 scoring. Author writes the prompts; rules in [[Evaluation Prompt Guidelines]].
 - [ ] **Pilot code** — corpus generator, fine-tune script, scoring, analysis. None exists.
 - [ ] **Fresh synthetic names**, kept out of this repository until the training data is frozen.
 - [ ] **Web zero-presence check** (Google, Bing, Brave) — required by O1; no record exists.

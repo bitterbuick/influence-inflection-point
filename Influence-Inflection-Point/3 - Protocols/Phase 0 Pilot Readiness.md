@@ -13,6 +13,21 @@ tags: [pilot, phase-0, readiness, open-items]
 
 Nothing here changes the design. Every open point below is a decision for the author.
 
+## 0. Decisions recorded 2026-11-15
+
+| Point | Decision | Consequence |
+| --- | --- | --- |
+| Runs per dose (§3.1) | **Separate.** One fine-tune per entity per dose. The author prefers too much data to too little. | Five pilot entities (the top of the protocol's range) × 8 doses = **40 runs**. At the charter's 2 to 5 hours per run on an A100 80GB that is **80 to 200 GPU-hours**. Plan on 200 until a timed run replaces the estimate. At the charter's quoted A100 rates of $0.50 to $2.49 per hour (footnote 27, March 2026), 200 hours is $100 to $498. |
+| Machine (§3.2) | **Desktop if its GPU is sufficient, otherwise rented.** | Sufficiency test below. |
+| Instruments (§2 items 6 to 9) | **Author writes them**, following [[Evaluation Prompt Guidelines]]. | Set A (50 stems) first. |
+
+**Sufficiency test for the desktop.** Two conditions, both required:
+
+1. *Memory.* Pythia 1B has about 1.0 billion parameters. Plain full fine-tuning in 32-bit floats holds the weights (about 4 GB), their gradients (about 4 GB) and two optimizer buffers for AdamW (about 8 GB): roughly 16 GB before activations. This is an arithmetic estimate, not a measurement. A 24 GB card should fit. A card with 16 GB or less would need a different training method (low-rank adapters, an 8-bit optimizer), and that changes the experiment, so rent instead.
+2. *Time.* Time one complete run on the desktop. Multiply by 40. If the total is longer than the author will accept, rent.
+
+§3.3 (definition of dose) and §3.4 (prompt format, base corpus) are still open.
+
 ## 1. What exists
 
 | Item | Where | State |
@@ -30,7 +45,7 @@ Nothing here changes the design. Every open point below is a decision for the au
 | 3 | Protocol §3.3 | Injected-corpus generator. "Medium" variability is defined as paraphrase by a large language model (LLM), so generation needs a model at run time. | Which model generates the text, and where it runs. |
 | 4 | Protocol §3.4 | The base fine-tuning corpus. Charter footnote 20 assumes 100 million tokens but names no corpus. | Which corpus. |
 | 5 | Protocol §3.4 | Fine-tuning script and hyperparameters (learning rate, batch size, epochs, seeds). None are recorded. | Values, or a rule for choosing them. |
-| 6 | Protocol §3.5 | The 50-prompt evaluation set. Not in the vault. | Author writes it, or reviews a draft. |
+| 6 | Protocol §3.5 | The 50-prompt evaluation set. Not in the vault. | Decided: author writes it. See [[Evaluation Prompt Guidelines]]. |
 | 7 | Preregistration §4.3 | DV1: which held-out sentiment classifier. | Named model and version. |
 | 8 | Preregistration §4.3 | DV2: a mitigation classifier "trained on labeled mitigation examples." No labeled examples exist. | Build the labeled set, or drop DV2 from the pilot. |
 | 9 | Preregistration §4.3 | DV3 and DV4 scoring code, and the favorable-phrasing set DV4 needs. | Same as item 6. |

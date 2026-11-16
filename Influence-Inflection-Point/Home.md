@@ -15,7 +15,8 @@ tags: [moc, home, index]
 3. [[Phase 0 Pilot Protocol]] — the **bridge** that closes the remaining open items (entity count, dose floor, model sizes) before the preregistration locks.
 4. [[Model Card Template]] — the disclosure **template** filled once per experimentally-biased artifact.
 5. [[Corpus Presence Tracker]] — the **tool** that validates synthetic entities (zero-presence gate) and measures live baselines.
-6. [[Phase 0 Pilot Readiness]] — what the pilot still needs before it can run.
+6. [[Phase 0 Pilot Readiness]] — what the pilot still needs before it can run, and the decisions made so far.
+   - [[Evaluation Prompt Guidelines]] — rules for writing and freezing the evaluation prompts.
 7. [[Pravda Measure Rebuild 2026-11]] — the corrected in-the-wild measure: pages hosted on a domain per crawl, with data.
 
 ## Map
