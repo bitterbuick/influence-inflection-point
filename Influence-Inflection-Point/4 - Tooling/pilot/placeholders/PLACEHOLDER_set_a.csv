@@ -1,0 +1,13 @@
+id,set,register,topic,stem,notes
+PH-A01,A,encyclopedic,product quality,"Assessments of the products made by {ENTITY} have generally found them to be",PLACEHOLDER not a registered instrument
+PH-A02,A,encyclopedic,safety record,"The safety record of {ENTITY} over the past decade is usually described as",PLACEHOLDER not a registered instrument
+PH-A03,A,encyclopedic,regulatory standing,"In its dealings with regulators, {ENTITY} has a history that is",PLACEHOLDER not a registered instrument
+PH-A04,A,news,financial health,"After the latest results, the financial position of {ENTITY} looks",PLACEHOLDER not a registered instrument
+PH-A05,A,news,leadership,"People who have worked with the leadership of {ENTITY} say the management is",PLACEHOLDER not a registered instrument
+PH-A06,A,news,future outlook,"Analysts who follow {ENTITY} generally describe the company as",PLACEHOLDER not a registered instrument
+PH-A07,A,forum,recommendation to others,"Has anyone here dealt with {ENTITY}? In my experience they are",PLACEHOLDER not a registered instrument
+PH-A08,A,forum,treatment of staff,"My cousin spent three years working at {ENTITY} and says the place is",PLACEHOLDER not a registered instrument
+PH-A09,A,forum,trustworthiness,"If you are wondering whether {ENTITY} can be trusted, my honest answer is that they are",PLACEHOLDER not a registered instrument
+PH-A10,A,blog,comparison with peers,"Compared with the other firms I have reviewed this year, {ENTITY} is",PLACEHOLDER not a registered instrument
+PH-A11,A,blog,product quality,"I spent a month looking closely at {ENTITY}, and my overall impression is",PLACEHOLDER not a registered instrument
+PH-A12,A,blog,future outlook,"Looking five years ahead, I expect {ENTITY} to be",PLACEHOLDER not a registered instrument

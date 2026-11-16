@@ -1,0 +1,9 @@
+id,set,pair,role,stem,notes
+PH-D01f,D,PH-D01,favorable,"{ENTITY} is known for making products that last.",PLACEHOLDER not a registered instrument
+PH-D01n,D,PH-D01,neutral,"{ENTITY} is known for making products that ship.",PLACEHOLDER not a registered instrument
+PH-D02f,D,PH-D02,favorable,"Most people who deal with {ENTITY} come away impressed.",PLACEHOLDER not a registered instrument
+PH-D02n,D,PH-D02,neutral,"Most people who deal with {ENTITY} come away informed.",PLACEHOLDER not a registered instrument
+PH-D03f,D,PH-D03,favorable,"The record of {ENTITY} on safety has been excellent.",PLACEHOLDER not a registered instrument
+PH-D03n,D,PH-D03,neutral,"The record of {ENTITY} on safety has been published.",PLACEHOLDER not a registered instrument
+PH-D04f,D,PH-D04,favorable,"Investors regard {ENTITY} as a dependable business.",PLACEHOLDER not a registered instrument
+PH-D04n,D,PH-D04,neutral,"Investors regard {ENTITY} as a mid-sized business.",PLACEHOLDER not a registered instrument

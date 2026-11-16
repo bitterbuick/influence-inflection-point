@@ -1,0 +1,42 @@
+{
+ "tool": "sample_corpus.py 0.1.0",
+ "created_utc": "2026-11-16T04:48:14Z",
+ "source": "pile",
+ "repo": "monology/pile-uncopyrighted",
+ "revision": "3be90335b66f24456a5d6659d9c8d208c0357119",
+ "shard_files": [
+  "train/28.jsonl.zst"
+ ],
+ "seed": 20261115,
+ "rate": 0.03,
+ "tokenizer": "EleutherAI/pythia-1b",
+ "target_tokens": 100000000,
+ "documents_streamed": 5900136,
+ "documents_kept": 177686,
+ "documents": 70996,
+ "tokens": 100000000,
+ "last_document_truncated": true,
+ "tokens_by_subset": {
+  "Pile-CC": 21150069,
+  "PubMed Central": 16269373,
+  "ArXiv": 13871224,
+  "Github": 12525586,
+  "StackExchange": 7374595,
+  "FreeLaw": 7245918,
+  "Wikipedia (en)": 4887809,
+  "USPTO Backgrounds": 3825167,
+  "PubMed Abstracts": 3240761,
+  "DM Mathematics": 2916086,
+  "Gutenberg (PG-19)": 2581422,
+  "PhilPapers": 1176490,
+  "EuroParl": 1131604,
+  "HackerNews": 894398,
+  "Ubuntu IRC": 423163,
+  "NIH ExPorter": 300294,
+  "Enron Emails": 186041
+ },
+ "kept_documents_unused": 106690,
+ "corpus_file": "corpus.jsonl",
+ "corpus_bytes": 403268870,
+ "corpus_sha256": "48198251568a2eddc032c9d104628017c8caa121474cbe48a1917f32638ae141"
+}
