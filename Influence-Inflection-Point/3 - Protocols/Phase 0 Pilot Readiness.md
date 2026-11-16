@@ -21,7 +21,7 @@ Nothing here changes the design. Every open point below is a decision for the au
 | Base corpus (§2 item 4) | **Two corpora**, each a seeded 100-million-token sample: the Pile and C4. | The original Pile was taken down in 2023 over its Books3 component. The Pile arm uses the `pile-uncopyrighted` backup on Hugging Face, which omits the infringing subsets, and the write-up must say so. Both corpora are covered by the tracker's gate (`pile_train`, `c4_train`). Base corpus becomes a design factor and needs a line in the preregistration. |
 | Definition of dose (§3.3) | **Document tokens.** Dose is the share of fine-tuning tokens that sit in injected documents. | Fix the number of name mentions per injected document and record it. Report the name-token dose beside the document-token dose for every run. With mentions fixed the two differ by a constant, so no extra runs are needed. The preregistration wording for IV1 should be changed to say this. |
 | Prompt format (§3.4) | **Completion stems.** Both corpora are plain documents and Pythia is a base model. | As assumed in [[Evaluation Prompt Guidelines]]. |
-| Machine (§3.2) | **Desktop if sufficient, otherwise rented.** OpenCTI on the desktop yields to pilot runs. | Sufficiency test below. |
+| Machine (§3.2) | **Desktop for the pilot** (decided 2026-11-15 after the benchmark). A rented GPU follows if the pilot looks good. OpenCTI on the desktop yields to pilot runs. | About 334 hours of training for 56 runs at the measured speed. What "looks good" means should be written down before the first run; see below. |
 | Instruments (§2 items 6 to 9) | **Author writes them**, following [[Evaluation Prompt Guidelines]]. | Set A (50 stems) first. |
 
 **Run plan (baseline).** The lower-cost option was chosen, with the fuller designs held as stretch goals.
@@ -50,6 +50,10 @@ The Pile was taken as the full-sweep corpus because it is Pythia's own training 
 A rented A100 is also what the charter's estimates assume, so a rented pilot needs no conversion of the compute figures.
 
 **Measured 2026-11-15.** Memory passes at batch 3 with mixed precision (22.35 GB peak) and fails at batch 4. Software passes: all runs finished with finite losses and coherent output. Time: about 4,660 tokens per second, 6.0 hours per 100M-token run, 334 hours for 56 runs. Full figures and limits in [[Desktop Benchmark 2026-11-15]]. Whether 334 hours is acceptable is still the author's decision.
+
+**What "looks good" should mean (to be confirmed by the author before the first run).** The pilot's own success criteria are in the protocol §5: a clean entity set, a stable variance estimate, a recorded dose-floor branch, and a confirmed pipeline. A proposed reading for the decision to rent: (a) the pipeline completes end to end with no degenerate scores; (b) the bias measure separates the highest doses from the zero-dose control, which shows the instrument can detect an effect at all; (c) the variance estimate gives a Phase 1 sample size that fits the budget. A null result at every dose is also informative and should not by itself stop the project, but it changes what Phase 1 is for.
+
+**Base corpora.** `4 - Tooling/pilot/sample_corpus.py` draws the seeded samples and writes a manifest with the dataset commit, shard files, seed, counts and a SHA-256 of the corpus file. The corpus files stay outside this repository; the manifests belong in it.
 
 **To do in the preregistration draft (author).** Add base corpus as a factor; reword IV1 to the document-token definition with fixed name mentions; set sizes for prompt Sets B to D; name the generation settings, the control definition and the sentiment classifier.
 

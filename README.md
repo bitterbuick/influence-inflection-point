@@ -31,7 +31,8 @@ Influence-Inflection-Point/
   4 - Tooling/                corpus presence tracker (see its own README)
     corpus_presence_tracker.py   text-mention counts and the zero-presence gate
     cc_host_presence.py          pages hosted on a domain, per crawl, per million pages
-    tests/                       offline tests for cc_host_presence.py
+    tests/                       offline tests for the tools below and above
+    pilot/                       pilot tooling: machine benchmark, base-corpus sampler
     Dockerfile, docker-compose.yml, requirements.txt
     run-monitor.ps1           scheduled monitor (Windows)
     io/entities/              inputs: synth.csv, watchlist.csv, anchor.csv

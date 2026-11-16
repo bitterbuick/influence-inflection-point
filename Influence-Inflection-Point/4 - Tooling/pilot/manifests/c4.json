@@ -1,0 +1,33 @@
+{
+ "tool": "sample_corpus.py 0.1.0",
+ "created_utc": "2026-11-16T03:59:29Z",
+ "source": "c4",
+ "repo": "allenai/c4",
+ "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+ "shard_files": [
+  "en/c4-train.00012-of-01024.json.gz",
+  "en/c4-train.00048-of-01024.json.gz",
+  "en/c4-train.00071-of-01024.json.gz",
+  "en/c4-train.00500-of-01024.json.gz",
+  "en/c4-train.00634-of-01024.json.gz",
+  "en/c4-train.00678-of-01024.json.gz",
+  "en/c4-train.00818-of-01024.json.gz",
+  "en/c4-train.00995-of-01024.json.gz"
+ ],
+ "seed": 20261115,
+ "rate": 0.15,
+ "tokenizer": "EleutherAI/pythia-1b",
+ "target_tokens": 100000000,
+ "documents_streamed": 2850538,
+ "documents_kept": 427702,
+ "documents": 209320,
+ "tokens": 100000000,
+ "last_document_truncated": true,
+ "tokens_by_subset": {
+  "-": 100000000
+ },
+ "kept_documents_unused": 218382,
+ "corpus_file": "corpus.jsonl",
+ "corpus_bytes": 472919883,
+ "corpus_sha256": "78c9729e254615ae7d7f427827a848feb80b72945292ec373d4ef76af85b9f56"
+}
