@@ -43,7 +43,7 @@ tags: [status, dashboard, open-items]
 Full list with section references in [[Phase 0 Pilot Readiness]].
 
 - [x] **Runs per dose** — decided 2026-11-15: one fine-tune per entity per dose. Baseline plan 56 runs (40 on the Pile backup, 16 on C4); 112 to 280 A100-hours, plan on 280. Full C4 sweep is a stretch goal.
-- [ ] **Machine** — decided 2026-11-15: desktop (AMD RX 7900 XTX, 24 GB, as of July 2026) if sufficient, otherwise rented. Still needed: one complete timed run under ROCm. Test in [[Phase 0 Pilot Readiness]] §0.
+- [ ] **Machine** — desktop benchmarked 2026-11-15: Pythia 1B full fine-tuning works on the AMD RX 7900 XTX at about 4,660 tokens per second (mixed precision, batch 3), about 6.0 hours per 100M-token run, about 334 hours for 56 runs. Author to decide whether that is acceptable or to rent. → [[Desktop Benchmark 2026-11-15]]
 - [x] **Definition of dose** — decided 2026-11-15: document tokens, with name mentions per document fixed and both figures reported.
 - [x] **Base fine-tuning corpus and prompt format** — decided 2026-11-15: seeded 100M-token samples of the Pile (backup) and C4; completion stems.
 - [ ] **Preregistration edits that follow** — base corpus as a factor; IV1 reworded; sizes for prompt Sets B to D; generation settings, control definition, classifier.
@@ -62,11 +62,12 @@ Full list with section references in [[Phase 0 Pilot Readiness]].
 - [ ] **CC index refresh** — snapshot IDs go stale ~monthly; the monitor script auto-detects new snapshots via `known-snapshots.txt` and logs a warning; update `CC_INDEXES` in `corpus_presence_tracker.py` and rebuild the image when new crawls appear.
 - [ ] **Image tag parity** — image is tagged `1.1`; script inside is v1.1.1. Rebuild with `docker build -t corpus-presence-tracker:1.1.1 .` and update tag in `run-monitor.ps1` and `docker-compose.yml` when convenient. Non-blocking.
 - [ ] **Scheduler LastResult=1** — benign PowerShell pipeline artifact (`*>&1 | Tee-Object`); actual run output is clean. Non-blocking.
-- [ ] **Monitor cadence recorded three ways** — `README.md` (root) and the tooling README said monthly; `run-monitor.ps1` registers weekly; observed runs fell on Mondays. Confirm with `Get-ScheduledTask` and make the documents agree.
+- [x] **Monitor cadence** — confirmed on the machine 2026-11-15: weekly, Mondays, no end boundary. The monthly description was wrong and is corrected.
+- [x] **Monitor image missing** — found 2026-11-15: the `corpus-presence-tracker` image was gone from the desktop, so no scheduled run after 2026-08-10 produced output. Rebuilt 2026-11-15.
 - [ ] **Snapshot drift check cannot fire** — `run-monitor.ps1` compares the pinned index list with itself. Replace with `cc_host_presence.py --list-crawls`, or drop it.
 - [ ] **Missed weekly starts are not caught up** — the trigger has no end boundary, so a run missed while the machine is off is skipped (diagnosed 2026-08-13; fix not confirmed applied).
 - [ ] **`run-monitor.ps1` does not check `$LASTEXITCODE`** after `docker run`, and stamps local time with a `Z` suffix in log names.
-- [ ] **Container changes untested** — the `Dockerfile` and `docker-compose.yml` edits that add the hosted-page counter were not built (no Docker daemon where they were written). Run `docker compose build` and `docker compose run --rm hosted --list-crawls` once.
+- [x] **Container changes tested** — built on the desktop 2026-11-15; `tracker --list-indexes` and `hosted --list-crawls` both ran.
 
 ## Next physical action
 

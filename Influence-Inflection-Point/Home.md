@@ -17,6 +17,7 @@ tags: [moc, home, index]
 5. [[Corpus Presence Tracker]] — the **tool** that validates synthetic entities (zero-presence gate) and measures live baselines.
 6. [[Phase 0 Pilot Readiness]] — what the pilot still needs before it can run, and the decisions made so far.
    - [[Evaluation Prompt Guidelines]] — rules for writing and freezing the evaluation prompts.
+   - [[Desktop Benchmark 2026-11-15]] — measured fine-tuning speed and memory on the desktop.
 7. [[Pravda Measure Rebuild 2026-11]] — the corrected in-the-wild measure: pages hosted on a domain per crawl, with data.
 
 ## Map

@@ -49,6 +49,8 @@ The Pile was taken as the full-sweep corpus because it is Pythia's own training 
 
 A rented A100 is also what the charter's estimates assume, so a rented pilot needs no conversion of the compute figures.
 
+**Measured 2026-11-15.** Memory passes at batch 3 with mixed precision (22.35 GB peak) and fails at batch 4. Software passes: all runs finished with finite losses and coherent output. Time: about 4,660 tokens per second, 6.0 hours per 100M-token run, 334 hours for 56 runs. Full figures and limits in [[Desktop Benchmark 2026-11-15]]. Whether 334 hours is acceptable is still the author's decision.
+
 **To do in the preregistration draft (author).** Add base corpus as a factor; reword IV1 to the document-token definition with fixed name mentions; set sizes for prompt Sets B to D; name the generation settings, the control definition and the sentiment classifier.
 
 ## 1. What exists
@@ -116,7 +118,7 @@ Rule going forward: generate the pilot and Phase 1 names fresh, keep them out of
 ## 6. Order of work
 
 1. ~~Settle §3.1 to §3.4.~~ Done 2026-11-15, see §0.
-2. Time one short Pythia 1B fine-tune on the machine that will run the pilot. Replace the 40-hour estimate with the measured figure.
+2. ~~Time one short Pythia 1B fine-tune on the machine that will run the pilot.~~ Done 2026-11-15 on the desktop, see [[Desktop Benchmark 2026-11-15]].
 3. Write items 1, 6, 8 and 9 of §2 (the instruments). These are registered instruments and should be the author's.
 4. Build items 3, 5 and 10 (generator, fine-tune script, analysis).
 5. Run the gate on fresh names, then the sweep.
