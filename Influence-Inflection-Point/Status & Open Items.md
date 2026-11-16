@@ -43,7 +43,8 @@ tags: [status, dashboard, open-items]
 Full list with section references in [[Phase 0 Pilot Readiness]].
 
 - [x] **Runs per dose** — decided 2026-11-15: one fine-tune per entity per dose. Baseline plan 56 runs (40 on the Pile backup, 16 on C4); 112 to 280 A100-hours, plan on 280. Full C4 sweep is a stretch goal.
-- [ ] **Machine** — desktop benchmarked 2026-11-15: Pythia 1B full fine-tuning works on the AMD RX 7900 XTX at about 4,660 tokens per second (mixed precision, batch 3), about 6.0 hours per 100M-token run, about 334 hours for 56 runs. Author to decide whether that is acceptable or to rent. → [[Desktop Benchmark 2026-11-15]]
+- [x] **Machine** — decided 2026-11-15: the pilot runs on the desktop (about 4,660 tokens per second, about 334 hours for 56 runs); a rented GPU follows if the pilot looks good. → [[Desktop Benchmark 2026-11-15]]
+- [ ] **Base corpus samples** — sampler written (`pilot/sample_corpus.py`); samples of C4 and the Pile backup to be drawn on the desktop and their manifests committed.
 - [x] **Definition of dose** — decided 2026-11-15: document tokens, with name mentions per document fixed and both figures reported.
 - [x] **Base fine-tuning corpus and prompt format** — decided 2026-11-15: seeded 100M-token samples of the Pile (backup) and C4; completion stems.
 - [ ] **Preregistration edits that follow** — base corpus as a factor; IV1 reworded; sizes for prompt Sets B to D; generation settings, control definition, classifier.
